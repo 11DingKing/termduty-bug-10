@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"strings"
 	"time"
 
 	"termduty/internal/domain"
@@ -191,6 +192,9 @@ func (r *alertRepo) Transition(ctx context.Context, alertID domain.AlertID, even
 	if err != nil {
 		return domain.Alert{}, err
 	}
+	if event == domain.EventStart {
+		handlerID = normalizeTransitionHandler(handlerID)
+	}
 	now := r.Now()
 	newAssignee := assignee
 	switch event {
@@ -225,4 +229,8 @@ func (r *alertRepo) Transition(ctx context.Context, alertID domain.AlertID, even
 	}
 	committed = true
 	return r.Get(ctx, alertID)
+}
+
+func normalizeTransitionHandler(id string) string {
+	return strings.TrimSpace(id)
 }
