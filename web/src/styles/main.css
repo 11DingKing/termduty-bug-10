@@ -1,0 +1,15 @@
+:root {
+  --td-page-padding: 20px;
+  --td-card-radius: 8px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, -apple-system, sans-serif; background: #f5f7fa; }
+.td-layout { display: flex; min-height: 100vh; }
+.td-aside { width: 200px; background: #304156; color: #bfcbd9; padding: 16px 0; }
+.td-aside .logo { font-size: 16px; font-weight: 600; color: #fff; padding: 0 20px 16px; }
+.td-main { flex: 1; padding: var(--td-page-padding); }
+.td-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.td-toolbar { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+.td-pagination { margin-top: 16px; display: flex; justify-content: flex-end; }
+.td-empty { text-align: center; padding: 48px; color: #909399; }
+.td-state-tag { font-size: 12px; }

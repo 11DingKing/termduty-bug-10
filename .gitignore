@@ -1,0 +1,10 @@
+/bin/
+/data/
+/dist/
+*.log
+*.db
+*.db-*
+.env
+web/node_modules/
+web/dist/
+coverage.out

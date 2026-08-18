@@ -1,0 +1,12 @@
+# Example configuration for the terminal & case time-limit monitoring service.
+http_addr: ":57615"
+data_dir: "./data"
+db_path: "./data/termduty.db"
+shard_dir: "./data/shards"
+log_level: "info"
+ingest_interval: 5s
+eval_interval: 10s
+lease_interval: 15s
+lease_ttl: 60s
+default_page_size: 50
+max_page_size: 200
