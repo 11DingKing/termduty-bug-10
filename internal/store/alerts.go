@@ -194,6 +194,15 @@ func (r *alertRepo) Transition(ctx context.Context, alertID domain.AlertID, even
 	}
 	if event == domain.EventStart {
 		handlerID = normalizeTransitionHandler(handlerID)
+		var activeHandler string
+		err := tx.QueryRowContext(ctx, `SELECT handler_id FROM assignments WHERE alert_id = ? AND state = 'active'`, string(alertID)).Scan(&activeHandler)
+		if errors.Is(err, sql.ErrNoRows) {
+			return domain.Alert{}, fmt.Errorf("%w: alert %s has no active assignment", domain.ErrValidation, alertID)
+		}
+		if err != nil { return domain.Alert{}, err }
+		if handlerID != "" && activeHandler != handlerID {
+			return domain.Alert{}, fmt.Errorf("%w: handler %s is not the active assignee of %s", domain.ErrValidation, handlerID, alertID)
+		}
 	}
 	now := r.Now()
 	newAssignee := assignee
